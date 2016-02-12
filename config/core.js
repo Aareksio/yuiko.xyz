@@ -91,7 +91,7 @@ config.SESSION_OPTIONS = {
 	name: 'kanri.session',
 	keys: secret.keys,
 	maxAge: (86400 * 1000),
-	secureProxy: true,
+	secureProxy: false,
 	domain: 'yuiko.xyz'
 };
 
