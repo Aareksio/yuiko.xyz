@@ -1,8 +1,6 @@
 extends layout
 
 block head
-  script(src='javascripts/dropzone.js')
-  script(src='javascripts/dropzone_custom.js')
   meta(name="max-up-size", value= config.MAX_UPLOAD_SIZE )
   meta(name="site-href", value= config.FILE_URL )
 
@@ -68,3 +66,7 @@ block content
         button
           i.fa.fa-mobile.fa-fw
           | &nbsp; iPhone (App Store)
+
+block scripts
+  script(src='javascripts/dropzone.js')
+  script(src='javascripts/dropzone_custom.js')

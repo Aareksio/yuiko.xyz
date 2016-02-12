@@ -1,5 +1,5 @@
 var express = require('express');
-var config  = require('../config/core');
+var config = require('../config/core');
 var router = express.Router();
 
 /* GET home page. */

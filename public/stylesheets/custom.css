@@ -1,25 +1,32 @@
 html {
     height: 100%;
 }
+
 body {
     background-image: url('../images/cream_dust.png');
 }
+
 #upload-button {
     margin-bottom: 2em;
 }
+
 .title {
     margin-bottom: -5px;
 }
+
 .summary {
     margin-top: 10%;
 }
+
 .toolinfo{
-    margin-top: 0px;
+    margin-top: 0;
 }
+
 .links {
     margin-top: 10em;
     margin-bottom: 10em;
 }
+
 .header {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -28,15 +35,18 @@ body {
     background-color: #FAFAFA;
     border-bottom: 1px solid #AAA;
 }
+
 .footer {
     margin-top: 25px;
     color: #AAA;
     text-align: center;
     margin-bottom: 5%;
 }
+
 .hidden {
     display:none;
 }
+
 .preview img {
     border-radius: 4px;
     min-width: 60px;
@@ -44,75 +54,90 @@ body {
     max-width: 60px;
     max-height: 60px;
 }
+
 .preview {
     margin-right: 10px;
 }
+
 .error {
     color: #f00;
 }
+
 .progress-outer {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid #FFF;
     border-radius: 6px;
-    box-shadow: 0px 0px 0px 1px #000;
+    box-shadow: 0 0 0 1px #000;
     color: transparent;
     display: inline-block;
-    font-size: 0px;
+    font-size: 0;
     float: right;
     height: 10px;
-    margin: 6px 6px 0px;
+    margin: 6px 6px 0;
     overflow: hidden;
     vertical-align: middle;
     width: 50px;
 }
+
 .progress-inner {
     background-color: #000;
     height: 10px;
-    margin: 0px;
-    width: 0px;
+    margin: 0;
+    width: 0;
 }
+
 .login_splash {
     width: 100%;
     height: auto;
 }
+
 .load_mask {
     text-align: center;
 }
+
 input.view {
     height: 22px;
     text-align: right;
     width: 60%;
-    margin-bottom: 0rem;
+    margin-bottom: 0;
 }
+
 input.view:disabled {
     background-color: #DDD;
 }
+
 button.apply {
     height: 22px;
     line-height: 24px;
     margin-left: 6px;
-    margin-bottom: 0rem;
+    margin-bottom: 0;
     width: calc(40% - 6px);
 }
+
 button.apply[state=success] {
     border-color: lime;
     color: lime;
 }
+
 #main {
     display: flex;
     flex-direction: column;
 }
+
 #users > .row {
     border-top: 1px solid #DDD;
 }
+
 button.rename {
     margin-left: 6px;
 }
+
 button.delete {
     margin-left: 6px;
     background-color: #FF5454;
     color: #FFF;
 }
+
 em.originalname {
     max-width: calc(100% - 520px);
     display: inline-block;
@@ -120,46 +145,57 @@ em.originalname {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 #age-selector {
     width: 100%;
     text-align: right;
 }
+
 button[disabled] {
     background-color: #DDD;
 }
+
 button[disabled]:hover {
     border-color: red;
 }
+
 button.sign_in {
     width: 100%;
     height: 50px;
     border: none;
-    font-size: 0px;
+    font-size: 0;
 }
+
 button.sign_in.google {
     background: url("../images/sign_in_google.png") no-repeat center top;
     background-size: contain;
 }
+
 button.sign_in.google:active {
     background: url("../images/sign_in_google_pressed.png") no-repeat center top;
     background-size: contain;
 }
+
 button.sign_in.pixiv {
     background: url("../images/sign_in_pixiv.png") no-repeat center top;
     background-size: contain;
 }
+
 button.sign_in.pixiv:active {
     background: url("../images/sign_in_pixiv_pressed.png") no-repeat center top;
     background-size: contain;
 }
+
 button.sign_in.github {
     background: url("../images/sign_in_github.png") no-repeat center top;
     background-size: contain;
 }
+
 button.sign_in.github:active {
     background: url("../images/sign_in_github_pressed.png") no-repeat center top;
     background-size: contain;
 }
+
 .button,
 button,
 input[type="submit"],
@@ -180,12 +216,21 @@ select {
   select {
     min-width: 100%;
   }
+
   em.originalname {
     max-width: calc(100% - 80px);
   }
+
   button.apply {
-    margin-left: 0px;
+    margin-left: 0;
   }
+}
+
+@media (min-width: 730px) {
+
+}
+.hidden {
+    display:none;
 }
 
 /*
@@ -231,10 +276,10 @@ CSS Folding Cube animation
 
 @keyframes loader-inner {
   0% {
-    height: 0%;
+    height: 0;
   }
   25% {
-    height: 0%;
+    height: 0;
   }
   50% {
     height: 100%;
@@ -243,6 +288,6 @@ CSS Folding Cube animation
     height: 100%;
   }
   100% {
-    height: 0%;
+    height: 0;
   }
 }

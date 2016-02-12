@@ -1,8 +1,8 @@
 {
-  "name": "not-pomf",
+  "name": "yuiko-xyz",
   "version": "0.1.0",
-  "description": "Not Pomf! A rewrite of the Pomf file host in NodeJS",
-  "author": "Max Gurela <maxpowa@outlook.com>",
+  "description": "Yuiko.xyz - Not Pomf fork!",
+  "author": "Arkadiusz 'Mole' Sygulski <arkadiusz@sygulski.pl>",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"

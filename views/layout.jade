@@ -16,18 +16,9 @@ html
     // Favicon
     link(href='/images/favicon.png', rel='icon', type='image/png')
     style(type='text/css').
-      @media (min-width: 730px) {
-        body {
-          background: url(#{grill}), url('/images/cream_dust.png');
-          background-size: 25vh, auto;
-          background-position: 85% 100%, top left;
-          background-repeat: no-repeat, repeat;
-          background-attachment: fixed;
-        }
-      }
-      .hidden {
-          display:none;
-      }
+      @media (min-width: 730px) {body {background: url(#{grill}), url('/images/cream_dust.png');background-size: 25vh, auto;background-position: 85% 100%, top left;background-repeat: no-repeat, repeat;background-attachment: fixed;}} .hidden {display:none;}
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-73730628-1', 'auto'); ga('send', 'pageview');
     block head
   body
     block content
@@ -44,4 +35,6 @@ html
           |  | 
           a(href='/contact') contact
           |  | 
-          a(href='https://github.com/maxpowa/npomf') source
+          a(href='https://github.com/Aareksio/yuiko.xyz') source
+
+    block scripts

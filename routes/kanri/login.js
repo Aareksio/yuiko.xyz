@@ -1,7 +1,6 @@
 var express = require('express');
-var config  = require('../../config/core');
+var config = require('../../config/core');
 var router = express.Router();
-
 
 router.get('/', function(req, res, next) {
   if (config.GITHUB_CLIENT_ID && config.GITHUB_CLIENT_SECRET) {

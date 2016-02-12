@@ -1,8 +1,7 @@
 var express = require('express');
-var config  = require('../../config/core');
-var util    = require('../../util/core');
+var config = require('../../config/core');
+var util = require('../../util/core');
 var router = express.Router();
-
 
 router.get('/', util.ensureAuthenticated, function(req, res, next) {
   res.render('kanri/stream', {title: config.SITE_NAME + ' · Stream', config: config, user: req.user});
@@ -40,7 +39,7 @@ router.post('/delete', ensureAuthenticated, function(req, res, next) {
 router.post('/rename', ensureAuthenticated, function(req, res, next) {
   var id = req.body.id;
   var newName = req.body.newName;
-  if (!id || !newName || newName.match('^[\\w\\-. ]+$')) {
+  if (!id || !newName || !/^[\w\-. ]+$/.test(newName)) {
     return res.status(400).json({error: {code: 400, message: 'Invalid id or new name specified'}});
   }
   util.renameFile(id, newName, function(err, data) {

@@ -34,3 +34,9 @@ npm-debug.log
 files/
 
 .vscode
+
+# IDE files
+.idea
+
+# Site secrets
+secret.js

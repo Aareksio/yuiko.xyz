@@ -21,7 +21,6 @@ if (!String.prototype.endsWith) {
 
 function generate_name(file, db, cb) {
     var ext = path.extname(file.originalname).toLowerCase();
-    // Check if extension is a double-dot extension and, if true, override $ext
     var revname = reverse(file.originalname.toLowerCase());
     config.COMPLEX_EXTS.forEach(function(extension) {
         extension = reverse(extension.toLowerCase());
@@ -32,17 +31,17 @@ function generate_name(file, db, cb) {
 
     function gen_name_internal() {
         var name = randomString(config.KEY_LENGTH);
-        // Add the extension to the file name
-        if (ext !== undefined && ext !== null && ext !== '')
+        if (ext !== undefined && ext !== null && ext !== '') {
             name = name + ext;
-        // Check if a file with the same name does already exist in the database
+        }
+
         db.get('SELECT COUNT(name) FROM files WHERE filename = ?', name, function(err, row) {
             if (row === undefined || row === null || row['COUNT(name)'] === 0) {
                 var now = Math.floor((new Date()).getTime()/1000);
                 db.run('INSERT INTO files (originalname, filename, size, created) VALUES (?, ?, ?, ?)', [file.originalname, name, file.size, now]);
                 cb(name);
             } else {
-                console.warn("Name conflict! (" + name + ")");
+                console.warn("Name conflict! (" + name + ")"); // Let's spam the error.log!
                 gen_name_internal();
             }
         });
@@ -86,23 +85,23 @@ function renameFile(id, newName, callback) {
 
 function createOrGetUser(user, callback) {
     db.all('SELECT * FROM users', [], function(err, rows) {
-      if (err) console.error('A problem occurred getting the user!');
-      if (rows === undefined || rows === null || rows.length === 0) {
-        // If this is the first user, give them all permissions
-        db.run('INSERT INTO users (id, provider, username, displayName, profileUrl, permissions) VALUES (?, ?, ?, ?, ?, ?)',
-              [user.id, user.provider, user.username, user.displayName, user.profileUrl, '*']);
-        user.permissions = '*';
-        return callback(user);
-      } else {
-        // If the user is already in the DB return that one, otherwise create one with no permissions
-        for (var i=0; i<rows.length; i++) {
-          if (rows[i].id == user.id) return callback(rows[i]);
-        }
-        db.run('INSERT INTO users (id, provider, username, displayName, profileUrl, permissions) VALUES (?, ?, ?, ?, ?, ?)',
-              [user.id, user.provider, user.username, user.displayName, user.profileUrl, '']);
-        user.permissions = '';
-        callback(user);
-      }
+          if (err) console.error('A problem occurred getting the user!');
+          if (rows === undefined || rows === null || rows.length === 0) {
+                // If this is the first user, give them all permissions
+                db.run('INSERT INTO users (id, provider, username, displayName, profileUrl, permissions) VALUES (?, ?, ?, ?, ?, ?)',
+                    [user.id, user.provider, user.username, user.displayName, user.profileUrl, '*']);
+                user.permissions = '*';
+                return callback(user);
+          } else {
+                // If the user is already in the DB return that one, otherwise create one with no permissions
+                for (var i=0; i<rows.length; i++) {
+                    if (rows[i].id == user.id) return callback(rows[i]);
+                }
+                db.run('INSERT INTO users (id, provider, username, displayName, profileUrl, permissions) VALUES (?, ?, ?, ?, ?, ?)',
+                    [user.id, user.provider, user.username, user.displayName, user.profileUrl, '']);
+                user.permissions = '';
+                callback(user);
+          }
     });
 }
 
@@ -116,8 +115,9 @@ function setUserPermissions(id, permissions, callback) {
 
 function reverse(s) {
     var o = '';
-    for (var i = s.length - 1; i >= 0; i--)
+    for (var i = s.length - 1; i >= 0; i--) {
         o += s[i];
+    }
     return o;
 }
 
@@ -142,10 +142,12 @@ function fileFilter(req, file, cb) {
             error.status = 403;
         }
     });
-    if (found)
+
+    if (found) {
         cb(error, false);
-    else
+    } else {
         cb(null, true);
+    }
 }
 
 function ensureAuthenticated(req, res, next) {
