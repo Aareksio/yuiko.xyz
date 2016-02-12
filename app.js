@@ -109,7 +109,6 @@ app.use(function(err, req, res, next) {
     res.render('error', {
         title: status + ' · ' + err.message,
         message: err.message,
-        error: stacktrace,
         status: status
     });
 });
