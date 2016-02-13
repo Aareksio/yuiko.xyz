@@ -16,8 +16,7 @@ config.SITE_NAME = 'Yuiko.xyz';
 config.HELLO = 'Hurr Durr~!';
 config.TAGLINE = 'Private-ish file hosting!';
 config.DESCRIPTION = 'Upload whatever you want here, as long as it\'s under ' + Math.round(config.MAX_UPLOAD_SIZE / 1000000) + 'MB.<br>' +
-    'Please read our <a href=\'/faq\'>FAQ</a>, as we may remove files under specific circumstances. <br>' +
-    'Pss... We don\'t accept executable files!';
+    'Please read our <a href=\'/faq\'>FAQ</a>, as we may remove files under specific circumstances. <br>';
 
 // Main URL (User-facing)
 // config.URL = 'http://my.domain.is.moe/';
@@ -62,25 +61,9 @@ config.KEY_LENGTH = 6;
 
 // Extensions that should be automatically rejected.
 // config.BANNED_EXTS = [];
-config.BANNED_EXTS = [
-    'exe',
-    'scr',
-    'vbs',
-    'bat',
-    'cmd',
-    'html',
-    'htm',
-    'msi',
-    'php'
-];
+config.BANNED_EXTS = [];
 
-config.COMPLEX_EXTS = [
-    '.tar.gz',
-    '.tar.bz',
-    '.tar.bz2',
-    '.tar.xz',
-    '.user.js'
-];
+config.COMPLEX_EXTS = [];
 
 // Github client id and secret keys, for Kanri authentication
 config.GITHUB_CLIENT_ID = secret.auth.clientID;
