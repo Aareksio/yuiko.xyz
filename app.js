@@ -57,7 +57,7 @@ app.set('view engine', 'jade');
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 if (config.SESSION_OPTIONS['secureProxy'] === true) {
@@ -75,7 +75,7 @@ app.use('/f', express.static(path.join(__dirname, config.UPLOAD_DIRECTORY)));
 app.set('json spaces', 2);
 
 app.use(function(req, res, next) {
-    res.locals.grill = config.GRILLS[Math.floor(Math.random()*config.GRILLS.length)];
+    res.locals.grill = config.GRILLS[Math.floor(Math.random() * config.GRILLS.length)];
     next();
 });
 
@@ -83,7 +83,7 @@ if (auth) {
     app.use('/kanri/stream', stream);
     app.use('/kanri/users', users);
     app.use('/kanri/login', login);
-    app.get('/kanri/logout', function(req, res){
+    app.get('/kanri/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
@@ -96,11 +96,14 @@ app.use('/contact', contact);
 app.use('/', routes);
 
 if (auth) {
-    var opts = {scope: [ 'user:email' ]};
-    app.get('/auth/github', passport.authenticate('github', opts), function(req, res){});
+    var opts = {scope: ['user:email']};
+    app.get('/auth/github', passport.authenticate('github', opts), function(req, res) {
+    });
 
     app.get('/auth/github/callback', passport.authenticate('github', {failureRedirect: '/login'}),
-        function(req, res) { res.redirect('/kanri/stream'); });
+        function(req, res) {
+            res.redirect('/kanri/stream');
+        });
 }
 
 app.use(function(req, res, next) {

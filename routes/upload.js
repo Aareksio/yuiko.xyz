@@ -12,26 +12,26 @@ mkdirp(config.UPLOAD_DIRECTORY);
 db.run('CREATE TABLE IF NOT EXISTS files (id integer primary key, filename text unique, originalname text, size number, created datetime)');
 
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, config.UPLOAD_DIRECTORY);
-  },
-  filename: function (req, file, cb) {
-    util.generate_name(file, db, function(name){
-      cb(null, name);
-    });
-  }
+    destination: function(req, file, cb) {
+        cb(null, config.UPLOAD_DIRECTORY);
+    },
+    filename: function(req, file, cb) {
+        util.generate_name(file, db, function(name) {
+            cb(null, name);
+        });
+    }
 });
 
-var upload = multer({ storage: storage, limits: {fileSize: config.MAX_UPLOAD_SIZE}, fileFilter: util.fileFilter });
+var upload = multer({storage: storage, limits: {fileSize: config.MAX_UPLOAD_SIZE}, fileFilter: util.fileFilter});
 
 /* POST upload page. */
 router.post('/', upload.array('files[]', config.MAX_UPLOAD_COUNT), function(req, res, next) {
-  var files = [];
-  req.files.forEach(function(file) {
-    db.run('UPDATE files SET size = ? WHERE filename = ?', [file.size, file.filename]);
-    files.push({"name": file.originalname, "url": file.filename, "size": file.size});
-  });
-  res.status(200).json({'success': true, 'files': files});
+    var files = [];
+    req.files.forEach(function(file) {
+        db.run('UPDATE files SET size = ? WHERE filename = ?', [file.size, file.filename]);
+        files.push({"name": file.originalname, "url": file.filename, "size": file.size});
+    });
+    res.status(200).json({'success': true, 'files': files});
 });
 
 module.exports = router;
