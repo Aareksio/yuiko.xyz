@@ -17,7 +17,7 @@ config.HELLO = 'Hurr Durr~!';
 config.TAGLINE = 'Private-ish file hosting!';
 config.DESCRIPTION = 'Upload whatever you want here, as long as it\'s under ' + Math.round(config.MAX_UPLOAD_SIZE/1000000) + 'MB.<br>' +
                      'Please read our <a href=\'/faq\'>FAQ</a>, as we may remove files under specific circumstances. <br>' +
-					 'Pss... We don\'t accept executable files as well!';
+					 'Pss... We don\'t accept executable files!';
 
 // Main URL (User-facing)
 // config.URL = 'http://my.domain.is.moe/';

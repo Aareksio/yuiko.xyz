@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
+var compression = require('compression');
+var minify = require('express-minify');
 var passport = require('passport');
 var GithubStrategy = require('passport-github2').Strategy;
 
@@ -42,6 +44,10 @@ if (config.GITHUB_CLIENT_ID && config.GITHUB_CLIENT_SECRET) {
 }
 
 var app = express();
+
+// compress shit
+app.use(compression());
+app.use(minify());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
