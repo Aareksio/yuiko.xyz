@@ -40,3 +40,6 @@ files/
 
 # Site secrets
 secret.js
+
+# ENV
+.env

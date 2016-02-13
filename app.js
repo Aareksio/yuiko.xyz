@@ -113,11 +113,16 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(err, req, res, next) {
+    var stacktrace = null;
+    if (app.get('env') === 'development') {
+        stacktrace = err;
+    }
     var status = err.status || 500;
     res.status(status);
     res.render('error', {
         title: status + ' · ' + err.message,
         message: err.message,
+        error: stacktrace,
         status: status
     });
 });
