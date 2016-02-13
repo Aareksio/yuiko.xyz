@@ -9,6 +9,12 @@ html
     // Fonts
     link(href='//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', rel='stylesheet', type='text/css')
     link(href='//fonts.googleapis.com/css?family=Raleway:400,300,600', rel='stylesheet', type='text/css')
+    // CSS
+    link(href='/css/normalize.css', rel='stylesheet')
+    link(href='/css/skeleton.css', rel='stylesheet')
+    link(href='/css/custom.css', rel='stylesheet')
+    style(type='text/css').
+    @media (min-width: 730px) {body {background: url(#{grill}), url('/images/cream_dust.png'); background-size: 25vh, auto; background-position: 85% 100%, top left;background-repeat: no-repeat, repeat;background-attachment: fixed;}} .hidden {display:none;}
     // Favicon
     link(href='/images/favicon.png', rel='icon', type='image/png')
     script.
@@ -30,12 +36,5 @@ html
           a(href='/contact') contact
           |  | 
           a(href='https://github.com/Aareksio/yuiko.xyz') source
-
-    // CSS
-    link(href='/css/normalize.css', rel='stylesheet')
-    link(href='/css/skeleton.css', rel='stylesheet')
-    link(href='/css/custom.css', rel='stylesheet')
-    style(type='text/css').
-      @media (min-width: 730px) {body {background: url(#{grill}), url('/images/cream_dust.png'); background-size: 25vh, auto; background-position: 85% 100%, top left;background-repeat: no-repeat, repeat;background-attachment: fixed;}} .hidden {display:none;}
 
     block scripts
