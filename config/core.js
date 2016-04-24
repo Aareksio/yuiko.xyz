@@ -20,11 +20,15 @@ config.DESCRIPTION = 'Upload whatever you want here, as long as it\'s under ' + 
 
 // Main URL (User-facing)
 // config.URL = 'http://my.domain.is.moe/';
-config.URL = 'http://yuiko.xyz/';
+config.URL = 'http://yuiko.xyz';
 
 // URL to access uploaded files
 // config.FILE_URL = 'http://a.my.domain.is.moe/';
-config.FILE_URL = 'http://yuiko.xyz/f/';
+config.FILE_URL = 'http://yuiko.xyz/f';
+
+// DO NOT TOUCH UNLESS YOU KNOW HOW TO PROPERLY CONFIGURE CORS (qq)
+// Changes the file upload form to POST to this URL instead of the one it's loaded from.
+config.UPLOAD_URL = config.URL;
 
 // config.IFACES = '0.0.0.0';
 config.IFACES = 'localhost';

@@ -75,7 +75,7 @@ function renameFile(id, newName, callback) {
                 fs.rename(path.join(config.UPLOAD_DIRECTORY, row.filename),
                     path.join(config.UPLOAD_DIRECTORY, newName), function(err) {
                         row.filename = newName;
-                        callback(err, row);
+                        return callback(err, row);
                     });
             });
         } else {
@@ -92,6 +92,7 @@ function createOrGetUser(user, callback) {
             db.run('INSERT INTO users (id, provider, username, displayName, profileUrl, permissions) VALUES (?, ?, ?, ?, ?, ?)',
                 [user.id, user.provider, user.username, user.displayName, user.profileUrl, '*']);
             user.permissions = '*';
+
             return callback(user);
         } else {
             // If the user is already in the DB return that one, otherwise create one with no permissions
@@ -101,7 +102,7 @@ function createOrGetUser(user, callback) {
             db.run('INSERT INTO users (id, provider, username, displayName, profileUrl, permissions) VALUES (?, ?, ?, ?, ?, ?)',
                 [user.id, user.provider, user.username, user.displayName, user.profileUrl, '']);
             user.permissions = '';
-            callback(user);
+            return callback(user);
         }
     });
 }
@@ -119,6 +120,7 @@ function reverse(s) {
     for (var i = s.length - 1; i >= 0; i--) {
         o += s[i];
     }
+
     return o;
 }
 
@@ -136,6 +138,7 @@ function randomString(length) {
 function fileFilter(req, file, cb) {
     var found = false;
     var error = null;
+
     config.BANNED_EXTS.forEach(function(ext) {
         if (file.originalname.toLowerCase().endsWith(ext)) {
             found = true;
@@ -144,17 +147,12 @@ function fileFilter(req, file, cb) {
         }
     });
 
-    if (found) {
-        cb(error, false);
-    } else {
-        cb(null, true);
-    }
+    return cb(error, !found); // We don't need if here :o
 }
 
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
+    if (req.isAuthenticated()) return next();
+
     res.redirect('/kanri/login');
 }
 
@@ -166,9 +164,7 @@ exports.generate_name = generate_name;
 exports.ensureAuthenticated = ensureAuthenticated;
 exports.createOrGetUser = createOrGetUser;
 exports.getAllUsers = getAllUsers;
-exports.getDatabase = function() {
-    return db;
-};
+exports.getDatabase = function() { return db; };
 exports.getUploads = getUploads;
 exports.renameFile = renameFile;
 exports.deleteFile = deleteFile;

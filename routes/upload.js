@@ -1,7 +1,7 @@
 var express = require('express');
 var multer = require('multer');
 var mkdirp = require('mkdirp');
-var cors    = require('cors');
+var cors = require('cors');
 var config = require('../config/core');
 var util = require('../util/core');
 
