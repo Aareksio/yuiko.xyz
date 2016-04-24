@@ -1,10 +1,12 @@
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', function (event) {
     // Get the template HTML and remove it from the document
     var previewNode = document.querySelector('.template');
     previewNode.id = '';
     previewNode.className = '';
     var previewTemplate = previewNode.parentNode.innerHTML;
     previewNode.parentNode.removeChild(previewNode);
+
+    var post_url = document.querySelector('meta[name="upload-url"]').getAttribute('value') || "";
 
     function bytesToSize(bytes) {
         var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -25,10 +27,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
             'Content-type: plain/text\r\n\r\n' +
             data + '\r\n' +
             '--' + boundary + '--';
-
-        xhr.open('POST', '/upload', true);
+        xhr.open('POST', post_url + '/upload', true);
         xhr.setRequestHeader('Content-type', 'multipart/form-data; boundary=' + boundary);
-        xhr.addEventListener('load', function() {
+        xhr.addEventListener('load', function () {
             var data = JSON.parse(this.responseText);
             var template = document.createElement('div');
             template.innerHTML = previewTemplate;
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             template.querySelector('.status').classList.add('hidden');
             template.querySelector('.link').classList.remove('hidden');
             if (!data.files || data.files.length <= 0) return;
-            var name = document.querySelector('meta[name="site-href"]').getAttribute('value') + data.files[0].url;
+            var name = document.querySelector('meta[name="site-href"]').getAttribute('value') + '/' + data.files[0].url;
             template.querySelector('.link-href').setAttribute('href', name);
             template.querySelector('.link-href').innerHTML = name;
             template.querySelector('span.name').innerHTML = filename;
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
 
     var pastebtn = document.querySelector('#paste-button');
-    pastebtn.addEventListener('click', function(event) {
+    pastebtn.addEventListener('click', function (event) {
         var wrap = document.querySelector('#paste-wrap');
         if (wrap.classList.contains('hidden')) {
             wrap.classList.remove('hidden');
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         }
     });
     var submitpastebtn = document.querySelector('button#paste-submit-button');
-    submitpastebtn.addEventListener('click', function(event) {
+    submitpastebtn.addEventListener('click', function (event) {
         var content = document.querySelector('textarea#paste-box').value;
         fakeFileUpload(content);
     });
@@ -77,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
 
     var dz = new Dropzone(document.body, {
-        url: '/upload',
+        url: post_url + '/upload',
         paramName: 'files[]',
         thumbnailWidth: 60,
         thumbnailHeight: 60,
@@ -91,35 +92,34 @@ document.addEventListener('DOMContentLoaded', function(event) {
         error: errorHandler
     });
 
-    dz.on('addedfile', function(file) {
-        file.previewElement.querySelector('.remove').onclick = function() {
+    dz.on('addedfile', function (file) {
+        file.previewElement.querySelector('.remove').onclick = function () {
             dz.removeFile(file);
         };
     });
 
-    dz.on('sending', function(file) {
+    dz.on('sending', function (file) {
         document.querySelector('.file-progress').style.opacity = '1';
     });
 
-    dz.on('complete', function(file) {
+    dz.on('complete', function (file) {
         file.previewElement.querySelector('.status').classList.add('hidden');
-
         if (!file.xhr || !file.xhr.response) return;
         var data = JSON.parse(file.xhr.response);
         if (!data.files || data.files.length <= 0) return;
         file.previewElement.querySelector('.link').classList.remove('hidden');
-        var name = document.querySelector('meta[name="site-href"]').getAttribute('value') + data.files[0].url;
+        var name = document.querySelector('meta[name="site-href"]').getAttribute('value') + '/' + data.files[0].url;
         file.previewElement.querySelector('.link-href').setAttribute('href', name);
         file.previewElement.querySelector('.link-href').innerHTML = name;
     });
 
-    dz.on('uploadprogress', function(file, progress, bytesSent) {
+    dz.on('uploadprogress', function (file, progress, bytesSent) {
         file.previewElement.querySelector('.file-progress .progress-inner').style.width = progress + '%';
     });
 
     // Hide the total progress bar when nothing's uploading anymore
     // Hide you say?
-    dz.on('queuecomplete', function(progress) {
+    dz.on('queuecomplete', function (progress) {
         //document.querySelector('.file-progress').style.opacity = '0';
     });
 });
