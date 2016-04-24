@@ -27,10 +27,10 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage, limits: {fileSize: config.MAX_UPLOAD_SIZE}, fileFilter: util.fileFilter});
 
 var limiter = rateLimit({
-    windowMs: 60 * 60 * 1000,
+    windowMs: config.RATE_LIMITER.window,
+    max: config.RATE_LIMITER.max,
     delayAfter: 0,
-    delayMs: 0,
-    max: 100
+    delayMs: 0
 });
 
 /* Handle CORS pre-flight requests */

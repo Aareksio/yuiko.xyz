@@ -78,8 +78,14 @@ config.SESSION_OPTIONS = {
     name: 'kanri.session',
     keys: secret.keys,
     maxAge: (86400 * 1000),
-    secureProxy: false,
+    secureProxy: true,
     domain: 'yuiko.xyz'
+};
+
+// Rate limiter options
+config.RATE_LIMITER = {
+    window: 60 * 60 * 60,
+    max: 100
 };
 
 for (var attr in process.env) {
