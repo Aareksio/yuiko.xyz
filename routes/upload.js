@@ -28,6 +28,8 @@ var upload = multer({storage: storage, limits: {fileSize: config.MAX_UPLOAD_SIZE
 
 var limiter = rateLimit({
     windowMs: 60 * 60 * 1000,
+    delayAfter: 0,
+    delayMs: 0,
     max: 100
 });
 
