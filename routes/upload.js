@@ -2,6 +2,7 @@ var express = require('express');
 var multer = require('multer');
 var mkdirp = require('mkdirp');
 var cors = require('cors');
+var rateLimit = require('express-rate-limit');
 var config = require('../config/core');
 var util = require('../util/core');
 
@@ -25,12 +26,16 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage, limits: {fileSize: config.MAX_UPLOAD_SIZE}, fileFilter: util.fileFilter});
 
+var limiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 100
+});
 
 /* Handle CORS pre-flight requests */
 router.options('/', cors());
 
 /* POST upload page. */
-router.post('/', cors(), upload.array('files[]', config.MAX_UPLOAD_COUNT), function(req, res, next) {
+router.post('/', cors(), limiter, upload.array('files[]', config.MAX_UPLOAD_COUNT), function(req, res, next) {
     var files = [];
     req.files.forEach(function(file) {
         db.run('UPDATE files SET size = ? WHERE filename = ?', [file.size, file.filename]);
